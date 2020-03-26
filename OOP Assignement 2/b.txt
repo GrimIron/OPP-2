@@ -1,0 +1,73 @@
+/*int[] n1_2048 = Files.Net_file(2048, Net_1_2048);
+            Console.ReadLine();
+            int[] n2_256 = Files.Net_file(256, Net_2_256);
+            Console.ReadLine();
+            int[] n2_2048 = Files.Net_file(2048, Net_2_2048);
+            Console.ReadLine();
+            int[] n3_256 = Files.Net_file(256, Net_3_256);
+            Console.ReadLine();
+            int[] n3_2048 = Files.Net_file(2048, Net_3_2048);*/
+
+
+        //if key is in arr[] it will return the count of how many times it appears, if it doesnt appear it returns -1.
+        public static int count(int[] array_to_sort, int array_size, int key)
+        {
+            int i = first(array_to_sort, 0, array_size - 1, key, array_size);     //initialises the index for the first time the key is found  
+
+            if (i == -1)
+                return i;
+
+            int j = last(array_to_sort, i, array_size - 1, key, array_size);      //initialises the index for the last time the key is found  
+
+            /* return count */
+            return j - i + 1;
+        }
+
+        //if key is in arr[] it will return the index position of the first time it appears, if it doesnt appear returns -1
+        private static int first(int[] array_to_sort, int left, int right, int array_size, int key)
+        {
+            if (right >= left)
+            {
+                /*low + (high - low)/2;*/
+                int mid = (left + right) / 2;
+                if ((mid == 0 || key > array_to_sort[mid - 1]) && array_to_sort[mid] == key)
+                {
+                    return mid;
+                }
+                   
+                else if (key > array_to_sort[mid])
+                {
+                     first(array_to_sort, (mid + 1), right, array_size, key);
+                }
+                    
+                else
+                    return first(array_to_sort, left, (mid - 1), array_size, key);
+            }
+            return -1;
+        }
+
+        //if key is in arr[] it will return the index position of the last time it appears, if it doesnt appear returns -1
+        private static int last(int[] array_to_sort, int left, int right, int array_size, int key)
+        {
+            if (right >= left)
+            {
+                /*low + (high - low)/2;*/
+                int mid = (left + right) / 2;
+                if ((mid == array_size - 1 || key < array_to_sort[mid + 1]) && array_to_sort[mid] == key)
+                {
+                    return mid;
+                }
+                   
+                else if (key < array_to_sort[mid])
+                {
+                    return last(array_to_sort, left, (mid - 1), array_size, key);
+                }
+
+                else
+                {
+                    return last(array_to_sort, (mid + 1), right, array_size, key);
+                }
+                  
+            }
+            return -1;
+        }
